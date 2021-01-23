@@ -1,0 +1,36 @@
+@font-face {
+  font-family: titleFont;
+  src: url("../assets/fonts/NotoSansJP-Regular.otf");
+}
+
+.errorClass {
+  border: 2px red solid;
+}
+
+.title {
+  font-family: titleFont;
+  font-size: 28px;
+  line-height: 2;
+  letter-spacing: 0.8px;
+  font-weight: 600;
+  text-align: center;
+  color: #bbbbbb;
+}
+
+.card {
+  background-color: #1f1d1d;
+  border: 1px solid #66b95c;
+  padding: 15px;
+  color: #bbbbbb;
+  text-align: center;
+  font-size: 22px;
+
+  .btn {
+    background-color: #66b95c;
+    color: white;
+  }
+}
+
+h5 {
+    display: inline-block !important;
+}

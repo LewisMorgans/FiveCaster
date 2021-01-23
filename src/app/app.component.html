@@ -1,9 +1,9 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-2 ml-auto">
+  <div class="row mt-5">
+    <div class="col-md-2 mx-auto">
       <div class="card">
         <div class="card-img-top mb-2">
-          <h1 class="logo">Weather App</h1>
+          <h1 class="title">Weather App</h1>
         </div>
         <form [formGroup]="searchForm" class="">
           <input
@@ -19,7 +19,7 @@
           <div class="btnContainer">
             <button
               type="button"
-              class="btn btn-primary btn-block go mt-2"
+              class="btn btn-block mt-2"
               (click)="searchCityWeather()"
             >
               Search
@@ -28,19 +28,26 @@
         </form>
       </div>
     </div>
-    <div class="col-md-6 mr-auto">
+  </div>
+  <div class="row mt-5">
+    <div class="col-md-8 mx-auto">
       <div class="row">
-        <div *ngFor="let weekDay of selectedForcast" class="col -md-3">
+        <div *ngFor="let weekDay of retrievedForcast" class="col">
           <div class="card">
-            <div class="card-image">
+            <span class="title"
+              >{{ weekDay.day | date: "EEEE" }}
               <img
-                src="http://openweathermap.org/img/wn/{{ weekDay.icon }}.png"
-              />
+                src="http://openweathermap.org/img/wn/{{
+                  weekDay.icon
+                }}.png" /></span
+            ><br />
+            <div class="card-image">
+              <h5>Average Temperature</h5>
+              {{ weekDay.temp | number: "1.2-2" }}°C<br />
             </div>
             <card class="body">
-              {{ weekDay.day | date: "EEEE" }}<br />
-              {{ weekDay.temp | number: "1.2-2" }}Celcius<br />
-              {{ weekDay.speed | number }}<br />
+              <h5>Wind Speed:</h5>
+              {{ weekDay.speed | number }}Mph<br />
               {{ weekDay.description }}<br />
             </card>
           </div>

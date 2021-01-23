@@ -5,11 +5,11 @@ import { HttpService } from './services/http-service.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   public searchForm: FormGroup;
-  public selectedForcast = [];
+  public retrievedForcast = [];
   public submitted = false;
 
   constructor(
@@ -29,17 +29,16 @@ export class AppComponent implements OnInit {
 
   get f(): any {
     // return type?
-    console.log(typeof this.searchForm.controls);
     return this.searchForm.controls;
   }
 
   public searchCityWeather(): void {
-    this.selectedForcast = [];
+    this.retrievedForcast = [];
     this.submitted = true;
 
     if (this.validationCheck()) {
       this.httpService
-        .getCityData$(this.f.searchString.value)
+        .getWeatherData$(this.f.searchString.value)
         .subscribe((resp) => {
           for (let i = 0; i < resp.list.length; i += 8) {
             const forcast = {
@@ -49,7 +48,7 @@ export class AppComponent implements OnInit {
               description: resp.list[i].weather[0].description,
               icon: resp.list[i].weather[0].icon,
             };
-            this.selectedForcast.push(forcast);
+            this.retrievedForcast.push(forcast);
           }
         });
     }
