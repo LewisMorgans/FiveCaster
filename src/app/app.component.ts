@@ -10,7 +10,7 @@ import { HttpService } from './services/http-service.service';
 })
 export class AppComponent implements OnInit {
   public searchForm: FormGroup;
-  public searchResult: any
+  public selectedForcast = [];
   public submitted = false;
 
   constructor(
@@ -33,14 +33,25 @@ export class AppComponent implements OnInit {
   }
 
   public searchCityWeather(): any {
+    this.selectedForcast = [];
     this.submitted = true;
 
     if (this.validationCheck()) {
       this.httpService
         .getCityData(this.f.searchString.value)
         .subscribe((resp) => {
-          console.log(resp.list[0].main);
-          this.searchResult = resp.list[0];
+          console.log(resp);
+          for (let i = 0; i < resp.list.length; i += 8) {
+            const forcast = {
+              day: resp.list[i].dt_txt,
+              temp: resp.list[i].main.temp,
+              speed: resp.list[i].wind.speed,
+              description: resp.list[i].weather[0].description,
+              icon: resp.list[i].weather[0].icon,
+            };
+            this.selectedForcast.push(forcast);
+          }
+          console.log(this.selectedForcast);
         });
     }
   }

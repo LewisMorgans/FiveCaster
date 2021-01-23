@@ -1,15 +1,15 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-8 mx-auto">
+    <div class="col-md-2 ml-auto">
       <div class="card">
-        <div class="card-img-top mb-5">
-          <h1 class="logo">FTTG</h1>
+        <div class="card-img-top mb-2">
+          <h1 class="logo">Weather App</h1>
         </div>
         <form [formGroup]="searchForm" class="">
           <input
-            placeholder="Email"
+            placeholder="Enter city name"
             formControlName="searchString"
-            type="email"
+            type="text"
             id="searchString"
             class="form-control"
             required
@@ -17,15 +17,38 @@
             [ngClass]="{ errorClass: f.searchString.errors && submitted }"
           />
 
-          <div class="btnContainer mb-5">
-            <button type="button" class="btn btn-primary go mt-5" (click)="searchCityWeather()">
+          <div class="btnContainer">
+            <button
+              type="button"
+              class="btn btn-primary btn-block go mt-2"
+              (click)="searchCityWeather()"
+            >
               Search
             </button>
           </div>
         </form>
       </div>
-      {{(searchResult)?.main.temp}}
-      <!-- {{ searchResult.list.main.temp | async }} -->
     </div>
+    <div class="col-md-6 mr-auto">
+      <div class="row">
+        <div *ngFor="let weekDay of selectedForcast" class="col -md-3">
+          <div class="card">
+            <div class="card-image">
+              <img
+                src="http://openweathermap.org/img/wn/{{ weekDay.icon }}.png"
+              />
+            </div>
+            <card class="body">
+              {{ weekDay.day | date: "EEEE" }}<br />
+              {{ weekDay.temp | number: "1.2-2" }}Celcius<br />
+              {{ weekDay.speed | number }}<br />
+              {{ weekDay.description }}<br />
+            </card>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container"></div>
   </div>
 </div>
