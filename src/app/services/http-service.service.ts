@@ -11,8 +11,8 @@ export class HttpService {
 
   constructor(private readonly http: HttpClient) {}
 
-  public getCityData(props: string): Observable<any> {
-    return this.http.get<any>(
+  public getCityData$(props: string): Observable<WeatherData> {
+    return this.http.get<WeatherData>(
       `https://api.openweathermap.org/data/2.5/forecast?q=${props}&appid=${this.APIKEY}&units=metric`
     );
   }

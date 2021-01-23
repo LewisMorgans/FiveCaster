@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { HttpService } from './services/http-service.service';
 
 @Component({
@@ -29,18 +28,19 @@ export class AppComponent implements OnInit {
   }
 
   get f(): any {
+    // return type?
+    console.log(typeof this.searchForm.controls);
     return this.searchForm.controls;
   }
 
-  public searchCityWeather(): any {
+  public searchCityWeather(): void {
     this.selectedForcast = [];
     this.submitted = true;
 
     if (this.validationCheck()) {
       this.httpService
-        .getCityData(this.f.searchString.value)
+        .getCityData$(this.f.searchString.value)
         .subscribe((resp) => {
-          console.log(resp);
           for (let i = 0; i < resp.list.length; i += 8) {
             const forcast = {
               day: resp.list[i].dt_txt,
@@ -51,7 +51,6 @@ export class AppComponent implements OnInit {
             };
             this.selectedForcast.push(forcast);
           }
-          console.log(this.selectedForcast);
         });
     }
   }
