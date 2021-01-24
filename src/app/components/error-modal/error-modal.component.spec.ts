@@ -1,57 +1,36 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { NavigationEnd, Router, RouterEvent } from '@angular/router';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { ErrorModalComponent } from './error-modal.component';
-import { ReplaySubject } from 'rxjs';
 
 describe('Error-Modal Unit Tests', () => {
   let component: ErrorModalComponent;
-  let spyBsModalService: jasmine.SpyObj<BsModalService>;
-  let router;
-  const eventSubject = new ReplaySubject<RouterEvent>(1);
+  let mockLocation: Partial<Location>;
 
-  beforeEach(
-    waitForAsync(() => {
-      const spy = jasmine.createSpyObj('BsModalService', ['hide']);
-      const mockRouter = {
-        navigate: jasmine.createSpy('navigate'),
-        events: eventSubject.asObservable(),
-      };
-      const mockLocation = {
-        location: {
-          reload: () => {},
-        },
-      };
+  beforeEach(waitForAsync(() => {
 
-      TestBed.configureTestingModule({
-        providers: [
-          ErrorModalComponent,
-          { provide: Router, useValue: mockRouter },
-          { provide: BsModalService, useValue: spy },
-          { provide: location, useValue: mockLocation },
-        ],
-      }).compileComponents();
+    mockLocation = {
+      reload: () => null
+    };
 
-      component = TestBed.inject(ErrorModalComponent);
-      spyBsModalService = TestBed.inject(BsModalService) as jasmine.SpyObj<BsModalService>;
-      router = TestBed.inject(Router);
-      spyBsModalService.hide.and.callThrough();
-    })
+    TestBed.configureTestingModule({
+      providers: [
+        ErrorModalComponent,
+        { provide: location, useValue: mockLocation }
+      ],
+    }).compileComponents();
+
+    component = TestBed.inject(ErrorModalComponent);
+    spyOn(component, 'refreshApplication').and.callFake(() => { mockLocation.reload(); });
+  })
   );
 
-  it('[Component] Expect component to exist', () => {
-    expect(component).toBeTruthy();
+  it('[ErrorModalComponent] Should create component instance', () => {
+    expect(ErrorModalComponent).toBeTruthy();
   });
 
-  it('[Refresh Application] On execution it should navigate back to the applications root', (done) => {
-    const reloadSpy = spyOn(component, 'reloadLocation').and.callFake(() => null);
-    eventSubject.next(new NavigationEnd(1, 'start', 'end'));
+  it('[Refresh Application] On execution it should navigate back to the applications root', fakeAsync(() => {
+    const reloadSpy = spyOn(mockLocation, 'reload').and.callThrough();
     component.refreshApplication();
-    expect(router.navigate).toHaveBeenCalled();
-    expect(spyBsModalService.hide).toHaveBeenCalled();
-    router.events.subscribe((_) => {
-      expect(reloadSpy).toHaveBeenCalled();
-      done();
-    });
-  });
+    expect(reloadSpy).toHaveBeenCalledTimes(1);
+    tick();
+  }));
 });

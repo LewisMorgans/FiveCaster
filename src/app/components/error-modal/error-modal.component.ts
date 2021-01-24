@@ -6,9 +6,6 @@ import { Component } from '@angular/core';
   templateUrl: './error-modal.component.html',
 })
 export class ErrorModalComponent {
-  public exception: any;
-
-  constructor() {}
 
   public refreshApplication(): void {
     location.reload();

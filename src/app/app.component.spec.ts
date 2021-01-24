@@ -1,31 +1,86 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { of } from 'rxjs';
 import { AppComponent } from './app.component';
+import { HttpService } from './services/http-service.service';
 
-describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
+describe('[AppComponent Unit Tests]', () => {
+  let component: AppComponent;
+  let mockFormBuilder = new FormBuilder();
+  let mockForm = new FormGroup({});
+  let mockHttpService: Partial<HttpService>;
+  let serviceSpy: jasmine.SpyObj<{}>;
+
+  beforeEach(waitForAsync(() => {
+    mockForm = mockFormBuilder.group({
+      searchString: 'Cardiff',
+    });
+
+    mockHttpService = {
+      // tslint:disable-next-line: deprecation
+      getWeatherData$: () => of({
+        list: [{
+          dt_txt: '24/01/2021',
+          length: 40,
+          main: {
+            temp: 12
+          },
+          wind: {
+            speed: 17
+          },
+          weather: [{
+            description: 'Windy',
+            icon: 'ICO011'
+          }]
+        }]
+      })
+    };
+
+    TestBed.configureTestingModule({
+      providers: [
+        AppComponent,
+        { provide: FormBuilder, useValue: mockFormBuilder },
+        { provide: HttpService, useValue: mockHttpService },
       ],
     }).compileComponents();
-  });
 
-  it('should create the app', () => {
+    component = TestBed.inject(AppComponent);
+    mockFormBuilder = TestBed.inject(FormBuilder);
+    mockHttpService = TestBed.inject(HttpService);
+
+    serviceSpy = spyOn(mockHttpService, 'getWeatherData$').and.callThrough();
+    component.ngOnInit();
+    component.searchForm = mockForm;
+  })
+  );
+
+  it('[AppComponent] Should create component instance', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'hcl-test'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('hcl-test');
+  it('[Form Getter] Should return the form controls object', () => {
+    component.ngOnInit();
+    expect(component.f).toBeInstanceOf(Object);
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('hcl-test app is running!');
+  it('[SearchCityWeather] Should call httpService if form is valid', () => {
+    component.searchCityWeather();
+    expect(serviceSpy).toHaveBeenCalledOnceWith(mockForm.value.searchString);
+  });
+
+  it('[SearchCityWeather] Should sort data and push to array', () => {
+    component.searchCityWeather();
+    mockHttpService.getWeatherData$(mockForm.value.searchString)
+      .subscribe(resp => {
+        expect(component.retrievedForcast).toEqual([{
+          day: resp.list[0].dt_txt,
+          temp: resp.list[0].main.temp,
+          speed: resp.list[0].wind.speed,
+          description: resp.list[0].weather[0].description,
+          icon: resp.list[0].weather[0].icon
+        }]);
+      });
   });
 });

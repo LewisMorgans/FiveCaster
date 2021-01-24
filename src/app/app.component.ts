@@ -15,13 +15,13 @@ export class AppComponent implements OnInit {
   constructor(
     private readonly fb: FormBuilder,
     private readonly httpService: HttpService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.intialiseFormState();
   }
 
-  private intialiseFormState(): void {
+  public intialiseFormState(): void {
     this.searchForm = this.fb.group({
       searchString: ['', Validators.required],
     });
@@ -36,8 +36,7 @@ export class AppComponent implements OnInit {
     this.submitted = true;
 
     if (this.searchForm.valid) {
-      this.httpService
-        .getWeatherData$(this.f.searchString.value)
+      this.httpService.getWeatherData$(this.f.searchString.value)
         .subscribe((resp) => {
           for (let i = 0; i < resp.list.length; i += 8) {
             const forcast = {

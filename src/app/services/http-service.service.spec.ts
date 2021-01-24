@@ -1,16 +1,38 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
+import { HttpService } from './http-service.service';
+import { HttpClientTestingModule, HttpTestingController, } from '@angular/common/http/testing';
 
-import { HttpServiceService } from './http-service.service';
+describe('HttpService Test', () => {
+  let service: HttpService;
+  let httpMock: HttpTestingController;
 
-describe('HttpServiceService', () => {
-  let service: HttpServiceService;
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+    }).compileComponents();
+    service = TestBed.inject(HttpService);
+    httpMock = TestBed.inject(HttpTestingController);
+  })
+  );
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(HttpServiceService);
+  it('Should make a GET request to the API and return mock data', () => {
+    const API = 'https://api.openweathermap.org/data/2.5/forecast?q=Cardiff&appid=fe3695759da76e0c9dcaf566634a08ed&units=metric';
+    const city = 'Cardiff';
+
+    service.getWeatherData$(city)
+      .subscribe((resp) => {
+        expect(resp).toEqual({ main: { temp: 32 } } as any);
+      });
+
+    const req = httpMock
+      .expectOne({
+        url: API,
+        method: 'GET',
+      })
+      .flush({ main: { temp: 32 } });
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  afterEach(() => {
+    httpMock.verify();
   });
 });

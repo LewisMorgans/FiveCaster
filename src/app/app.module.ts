@@ -19,7 +19,8 @@ import { AppRoutingModule } from './app-router.module';
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ErrorHandlerInterceptor
+      useClass: ErrorHandlerInterceptor,
+      multi: true
     },
   ],
   bootstrap: [AppComponent],

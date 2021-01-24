@@ -1,5 +1,5 @@
 export interface WeatherData {
-  list: {
+  list: [{
     dt_txt: string;
     length: number;
     main: {
@@ -8,9 +8,9 @@ export interface WeatherData {
     wind: {
       speed: number;
     };
-    weather: {
+    weather: [{
       description: string;
       icon: string;
-    };
-  };
+    }];
+  }];
 }
