@@ -3,7 +3,7 @@
     <div class="col-md-2 mx-auto">
       <div class="card">
         <div class="card-img-top mb-2">
-          <h1 class="title">Weather App</h1>
+          <h1 class="title">FiveCast</h1>
         </div>
         <form [formGroup]="searchForm" class="">
           <input
@@ -48,7 +48,7 @@
             <card class="body">
               <h5>Wind Speed:</h5>
               {{ weekDay.speed | number }}Mph<br />
-              {{ weekDay.description }}<br />
+              {{ weekDay.description | titlecase}}<br />
             </card>
           </div>
         </div>

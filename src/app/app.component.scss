@@ -14,19 +14,22 @@
   letter-spacing: 0.8px;
   font-weight: 600;
   text-align: center;
-  color: #bbbbbb;
+  color: #ffffffe1;
 }
 
 .card {
-  background-color: #1f1d1d;
-  border: 1px solid #66b95c;
+  background: #6dd5ed;  /* fallback for old browsers */
+  border-radius: 15px;
   padding: 15px;
-  color: #bbbbbb;
+  color: #ffffffe1;
   text-align: center;
   font-size: 22px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.404);
 
   .btn {
-    background-color: #66b95c;
+    background: #36D1DC;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #5B86E5, #36D1DC);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #5B86E5, #36D1DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: white;
   }
 }

@@ -1,0 +1,30 @@
+.alert {
+  background-color: #f5f7fa;
+
+  .modal-body {
+    p {
+      font-family: titleFont;
+      font-size: 28px;
+      line-height: 2;
+      letter-spacing: 0.8px;
+      font-weight: 600;
+      text-align: center;
+      color: #818181;
+    }
+  }
+
+  .modal-footer {
+    border: none !important;
+    .btn {
+      position: relative;
+      background-color: #c5c6c7;
+      border: none;
+      color: #ffffff;
+      transition: all ease-in 0.2s;
+      display: inline-block !important;
+    }
+    .btn:hover {
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.685);
+    }
+  }
+}

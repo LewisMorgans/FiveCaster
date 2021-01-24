@@ -27,8 +27,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  get f(): any {
-    // return type?
+  public get f(): any {
     return this.searchForm.controls;
   }
 
@@ -36,7 +35,7 @@ export class AppComponent implements OnInit {
     this.retrievedForcast = [];
     this.submitted = true;
 
-    if (this.validationCheck()) {
+    if (this.searchForm.valid) {
       this.httpService
         .getWeatherData$(this.f.searchString.value)
         .subscribe((resp) => {
@@ -51,14 +50,6 @@ export class AppComponent implements OnInit {
             this.retrievedForcast.push(forcast);
           }
         });
-    }
-  }
-
-  private validationCheck(): boolean {
-    if (this.searchForm.valid) {
-      return true;
-    } else {
-      return false;
     }
   }
 }
