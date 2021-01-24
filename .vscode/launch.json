@@ -6,7 +6,6 @@
       "port": 9222,
       "request": "attach",
       "type": "pwa-chrome",
-      // "webRoot": "${workspaceFolder}"
       "pathMapping": {
         "/": "${workspaceFolder}",
         "/base/": "${workspaceRoot}"
