@@ -2,14 +2,18 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Attach to Chrome",
-      "port": 9222,
-      "request": "attach",
-      "type": "pwa-chrome",
-      "pathMapping": {
-        "/": "${workspaceFolder}",
-        "/base/": "${workspaceRoot}"
-      }
+      "name": "Debug Client",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceRoot}"
+    },
+    {
+      "name": "Debug Unit Tests",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:9876/debug.html",
+      "webRoot": "${workspaceRoot}"
     }
   ]
 }
