@@ -62,7 +62,7 @@ describe('[AppComponent Unit Tests]', () => {
 
   it('[Form Getter] Should return the form controls object', () => {
     component.ngOnInit();
-    expect(component.f).toBeInstanceOf(Object);
+    expect(component.weatherform).toBeInstanceOf(Object);
   });
 
   it('[SearchCityWeather] Should call httpService if form is valid', () => {
@@ -74,12 +74,13 @@ describe('[AppComponent Unit Tests]', () => {
     component.searchCityWeather();
     mockHttpService.getWeatherData$(mockForm.value.searchString)
       .subscribe(resp => {
+        const key = resp.list[0];
         expect(component.retrievedForcast).toEqual([{
-          day: resp.list[0].dt_txt,
-          temp: resp.list[0].main.temp,
-          speed: resp.list[0].wind.speed,
-          description: resp.list[0].weather[0].description,
-          icon: resp.list[0].weather[0].icon
+          day: key.dt_txt,
+          temp: key.main.temp,
+          speed: key.wind.speed,
+          description: key.weather[0].description,
+          icon: key.weather[0].icon
         }]);
       });
   });

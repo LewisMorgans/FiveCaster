@@ -23,11 +23,11 @@ export class AppComponent implements OnInit {
 
   public intialiseFormState(): void {
     this.searchForm = this.fb.group({
-      searchString: ['', Validators.required],
+      searchString: ['', Validators.required]
     });
   }
 
-  public get f(): any {
+  public get weatherform(): any {
     return this.searchForm.controls;
   }
 
@@ -36,15 +36,17 @@ export class AppComponent implements OnInit {
     this.submitted = true;
 
     if (this.searchForm.valid) {
-      this.httpService.getWeatherData$(this.f.searchString.value)
+      const weatherUpdate = 8;
+      this.httpService.getWeatherData$((this.weatherform.searchString.value))
         .subscribe((resp) => {
-          for (let i = 0; i < resp.list.length; i += 8) {
+          for (let i = 0; i < resp.list.length; i += weatherUpdate) {
+            const key = resp.list[i];
             const forcast = {
-              day: resp.list[i].dt_txt,
-              temp: resp.list[i].main.temp,
-              speed: resp.list[i].wind.speed,
-              description: resp.list[i].weather[0].description,
-              icon: resp.list[i].weather[0].icon,
+              day: key.dt_txt,
+              temp: key.main.temp,
+              speed: key.wind.speed,
+              description: key.weather[0].description,
+              icon: key.weather[0].icon,
             };
             this.retrievedForcast.push(forcast);
           }
