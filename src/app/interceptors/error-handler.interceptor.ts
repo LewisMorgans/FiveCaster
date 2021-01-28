@@ -14,10 +14,11 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
-        if (err.status === 404) {
+        if (err.status === 404) { // In a large scale application extract this to an error handling service
           this.bsModalRef = this.modalService.show(ErrorModalComponent);
           return throwError(err);
         }
+        return throwError(err);
       })
     );
   }
