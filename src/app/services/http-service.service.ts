@@ -11,7 +11,7 @@ export class HttpService {
   //  Be aware you should never store an API key inside the client of your application like this.
 
   private APIKEY = 'fe3695759da76e0c9dcaf566634a08ed';
-  private endPoint = 'https://api.openweathermap.org/data/2.5/forecast?'
+  private endPoint = 'https://api.openweathermap.org/data/2.5/forecast?';
 
   constructor(private readonly http: HttpClient) { }
 
