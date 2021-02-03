@@ -15,14 +15,16 @@
 
   .modal-footer {
     border: none !important;
+
     .btn {
       position: relative;
-      background-color: #c5c6c7;
+      background-color: #50425D;
       border: none;
       color: #ffffff;
       transition: all ease-in 0.2s;
       display: inline-block !important;
     }
+
     .btn:hover {
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.685);
     }

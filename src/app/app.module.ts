@@ -28,4 +28,5 @@ import {ErrorModalComponent} from './components/error-modal/error-modal.componen
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}

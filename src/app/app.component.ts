@@ -42,14 +42,14 @@ export class AppComponent implements OnInit {
         .subscribe((resp) => {
           for (let i = 0; i < resp.list.length; i += weatherUpdate) {
             const key = resp.list[i];
-            const forcast = {
+            const forecast = {
               day: key.dt_txt,
               temp: key.main.temp,
               speed: key.wind.speed,
               description: key.weather[0].description,
               icon: key.weather[0].icon,
             };
-            this.retrievedForcast.push(forcast);
+            this.retrievedForcast.push(forecast);
           }
         });
     }

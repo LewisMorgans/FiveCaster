@@ -35,20 +35,20 @@
         <div *ngFor="let weekDay of retrievedForcast" class="col">
           <div class="card">
             <span class="title"
-              >{{ weekDay.day | date: "EEEE" }}
+            >{{ weekDay.day | date: "EEEE" }}
               <img
                 src="http://openweathermap.org/img/wn/{{
                   weekDay.icon
-                }}.png" /></span
-            ><br />
+                }}.png"/></span
+            ><br/>
             <div class="card-image">
               <h5>Average Temperature</h5>
-              {{ weekDay.temp | number: "1.2-2" }}°C<br />
+              {{ weekDay.temp | number: "1.2-2" }}°C<br/>
             </div>
             <card class="body">
               <h5>Wind Speed:</h5>
-              {{ weekDay.speed | number }}Mph<br />
-              {{ weekDay.description | titlecase}}<br />
+              {{ weekDay.speed | number }}Mph<br/>
+              {{ weekDay.description | titlecase}}<br/>
             </card>
           </div>
         </div>

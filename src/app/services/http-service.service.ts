@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { WeatherData } from '../models/WeatherData.interface';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {WeatherData} from '../models/WeatherData.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,8 @@ export class HttpService {
   private APIKEY = 'fe3695759da76e0c9dcaf566634a08ed';
   private endPoint = 'https://api.openweathermap.org/data/2.5/forecast?';
 
-  constructor(private readonly http: HttpClient) { }
+  constructor(private readonly http: HttpClient) {
+  }
 
   public getWeatherData$(city: string): Observable<WeatherData> {
 
@@ -25,6 +26,6 @@ export class HttpService {
       }
     });
 
-    return this.http.get<WeatherData>(this.endPoint, { params: httpParams });
+    return this.http.get<WeatherData>(this.endPoint, {params: httpParams});
   }
 }

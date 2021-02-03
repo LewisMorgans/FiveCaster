@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ErrorMap} from '../models';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {ErrorModalComponent} from '../components/error-modal/error-modal.component';
@@ -8,7 +8,8 @@ import {ErrorModalComponent} from '../components/error-modal/error-modal.compone
 })
 export class ErrorHandlerService {
 
-  constructor(private readonly bsModalService: BsModalService) { }
+  constructor(private readonly bsModalService: BsModalService) {
+  }
 
   public errorHandler(error: number): void {
     if (ErrorMap.has(error)) {

@@ -1,8 +1,8 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { of } from 'rxjs';
-import { AppComponent } from './app.component';
-import { HttpService } from './services/http-service.service';
+import {TestBed, waitForAsync} from '@angular/core/testing';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {of} from 'rxjs';
+import {AppComponent} from './app.component';
+import {HttpService} from './services/http-service.service';
 
 describe('[AppComponent Unit Tests]', () => {
   let component: AppComponent;
@@ -12,46 +12,46 @@ describe('[AppComponent Unit Tests]', () => {
   let serviceSpy: jasmine.SpyObj<{}>;
 
   beforeEach(waitForAsync(() => {
-    mockForm = mockFormBuilder.group({
-      searchString: 'Cardiff',
-    });
+      mockForm = mockFormBuilder.group({
+        searchString: 'Cardiff',
+      });
 
-    mockHttpService = {
-      // tslint:disable-next-line: deprecation
-      getWeatherData$: () => of({
-        list: [{
-          dt_txt: '24/01/2021',
-          length: 40,
-          main: {
-            temp: 12
-          },
-          wind: {
-            speed: 17
-          },
-          weather: [{
-            description: 'Windy',
-            icon: 'ICO011'
+      mockHttpService = {
+        // tslint:disable-next-line: deprecation
+        getWeatherData$: () => of({
+          list: [{
+            dt_txt: '24/01/2021',
+            length: 40,
+            main: {
+              temp: 12
+            },
+            wind: {
+              speed: 17
+            },
+            weather: [{
+              description: 'Windy',
+              icon: 'ICO011'
+            }]
           }]
-        }]
-      })
-    };
+        })
+      };
 
-    TestBed.configureTestingModule({
-      providers: [
-        AppComponent,
-        { provide: FormBuilder, useValue: mockFormBuilder },
-        { provide: HttpService, useValue: mockHttpService },
-      ],
-    }).compileComponents();
+      TestBed.configureTestingModule({
+        providers: [
+          AppComponent,
+          {provide: FormBuilder, useValue: mockFormBuilder},
+          {provide: HttpService, useValue: mockHttpService},
+        ],
+      }).compileComponents();
 
-    component = TestBed.inject(AppComponent);
-    mockFormBuilder = TestBed.inject(FormBuilder);
-    mockHttpService = TestBed.inject(HttpService);
+      component = TestBed.inject(AppComponent);
+      mockFormBuilder = TestBed.inject(FormBuilder);
+      mockHttpService = TestBed.inject(HttpService);
 
-    serviceSpy = spyOn(mockHttpService, 'getWeatherData$').and.callThrough();
-    component.ngOnInit();
-    component.searchForm = mockForm;
-  })
+      serviceSpy = spyOn(mockHttpService, 'getWeatherData$').and.callThrough();
+      component.ngOnInit();
+      component.searchForm = mockForm;
+    })
   );
 
   it('[AppComponent] Should create component instance', () => {

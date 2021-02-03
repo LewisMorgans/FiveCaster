@@ -4,7 +4,7 @@
 }
 
 .errorClass {
-  border: 2px red solid;
+  border: 2px #ff0000 solid;
 }
 
 .title {
@@ -18,7 +18,7 @@
 }
 
 .card {
-  background: #6dd5ed;  /* fallback for old browsers */
+  background: #9bccc8; /* fallback for old browsers */
   border-radius: 15px;
   padding: 15px;
   color: #ffffffe1;
@@ -27,11 +27,11 @@
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.404);
 
   .btn {
-    background: linear-gradient(to right, #5B86E5, #36D1DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #50425D;
     color: white;
   }
 }
 
 h5 {
-    display: inline-block !important;
+  display: inline-block !important;
 }
