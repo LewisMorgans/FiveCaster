@@ -2,22 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { ErrorModalComponent } from '../components/error-modal/error-modal.component';
+import {ErrorHandlerService} from '../services/error-handler.service';
 
 @Injectable()
 export class ErrorHandlerInterceptor implements HttpInterceptor {
-  private bsModalRef: BsModalRef;
 
-  constructor(private modalService: BsModalService) { }
+  constructor(private readonly errorhandler: ErrorHandlerService) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
-        if (err.status === 404) { // In a large scale application extract this to an error handling service
-          this.bsModalRef = this.modalService.show(ErrorModalComponent);
-          return throwError(err);
-        }
+        this.errorhandler.errorHandler(err.status);
         return throwError(err);
       })
     );

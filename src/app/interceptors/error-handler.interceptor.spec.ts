@@ -1,18 +1,23 @@
-import { HttpErrorResponse, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed, waitForAsync } from '@angular/core/testing';
-import { BsModalService } from 'ngx-bootstrap/modal';
 import { HttpService } from '../services/http-service.service';
 import { ErrorHandlerInterceptor } from './error-handler.interceptor';
+import {ErrorHandlerService} from '../services/error-handler.service';
 
 describe('ErrorHandlerInterceptor', () => {
   let interceptor: ErrorHandlerInterceptor;
-  let spyBsModalService: jasmine.SpyObj<BsModalService>;
+  let errorHandlerServiceMock;
   let httpMock: HttpTestingController;
   let httpService: HttpService;
 
   beforeEach(waitForAsync(() => {
-    const spy = jasmine.createSpyObj('BsModalService', ['show']);
+
+    errorHandlerServiceMock = {
+      errorHandler: () => {
+
+      }
+    };
 
     TestBed.configureTestingModule({
       imports: [
@@ -21,7 +26,7 @@ describe('ErrorHandlerInterceptor', () => {
       providers: [
         ErrorHandlerInterceptor,
         HttpService,
-        { provide: BsModalService, useValue: spy },
+        { provide: ErrorHandlerService, useValue: errorHandlerServiceMock },
         {
           provide: HTTP_INTERCEPTORS,
           useClass: ErrorHandlerInterceptor,
@@ -31,10 +36,9 @@ describe('ErrorHandlerInterceptor', () => {
     }).compileComponents();
 
     interceptor = TestBed.inject(ErrorHandlerInterceptor);
-    spyBsModalService = TestBed.inject(BsModalService) as jasmine.SpyObj<BsModalService>;
     httpMock = TestBed.inject(HttpTestingController);
     httpService = TestBed.inject(HttpService);
-    spyBsModalService.show.and.callThrough();
+    errorHandlerServiceMock = TestBed.inject(ErrorHandlerService);
 
   })
   );
@@ -47,11 +51,12 @@ describe('ErrorHandlerInterceptor', () => {
     const API = 'https://api.openweathermap.org/data/2.5/forecast?q=Cardiffffff&appid=fe3695759da76e0c9dcaf566634a08ed&units=metric';
     const mockErrorResponse = { status: 404, statusText: 'Bad Request' };
     const data = 'Invalid request parameters';
+    const serviceSpy = spyOn(errorHandlerServiceMock, 'errorHandler').and.callThrough();
 
     httpService.getWeatherData$('Cardiffffff').subscribe(_ => { }, err => {
       expect(err.status).toBe(mockErrorResponse.status);
       expect(err.statusText).toBe(mockErrorResponse.statusText);
-      expect(spyBsModalService.show).toHaveBeenCalled();
+      expect(serviceSpy).toHaveBeenCalled();
       done();
     });
 

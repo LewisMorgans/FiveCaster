@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpService } from './services/http-service.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {HttpService} from './services/http-service.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,8 @@ export class AppComponent implements OnInit {
   constructor(
     private readonly fb: FormBuilder,
     private readonly httpService: HttpService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.intialiseFormState();
