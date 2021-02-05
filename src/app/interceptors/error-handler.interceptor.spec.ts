@@ -3,7 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpService } from '../services/http-service.service';
 import { ErrorHandlerInterceptor } from './error-handler.interceptor';
-import {ErrorHandlerService} from '../services/error-handler.service';
+import { ErrorHandlerService } from '../services/error-handler.service';
 
 describe('ErrorHandlerInterceptor', () => {
   let interceptor: ErrorHandlerInterceptor;

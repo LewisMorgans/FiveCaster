@@ -1,8 +1,8 @@
-import {TestBed, waitForAsync} from '@angular/core/testing';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {of} from 'rxjs';
-import {AppComponent} from './app.component';
-import {HttpService} from './services/http-service.service';
+import { TestBed, waitForAsync } from '@angular/core/testing';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { of } from 'rxjs';
+import { AppComponent } from './app.component';
+import { HttpService } from './services/http-service.service';
 
 describe('[AppComponent Unit Tests]', () => {
   let component: AppComponent;

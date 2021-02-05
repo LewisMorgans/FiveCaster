@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {ErrorMap} from '../models';
-import {BsModalService} from 'ngx-bootstrap/modal';
-import {ErrorModalComponent} from '../components/error-modal/error-modal.component';
+import { Injectable } from '@angular/core';
+import { ErrorMap } from '../models';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { ErrorModalComponent } from '../components/error-modal/error-modal.component';
 
 @Injectable({
   providedIn: 'root'

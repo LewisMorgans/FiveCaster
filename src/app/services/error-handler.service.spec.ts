@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ErrorHandlerService } from './error-handler.service';
-import {BsModalService} from 'ngx-bootstrap/modal';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 describe('ErrorHandlerService', () => {
   let service: ErrorHandlerService;

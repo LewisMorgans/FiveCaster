@@ -60,6 +60,7 @@
     "no-redundant-jsdoc": true,
     "no-switch-case-fall-through": true,
     "no-var-requires": false,
+    "object-curly-spacing": true,
     "object-literal-key-quotes": [
       true,
       "as-needed"
@@ -76,7 +77,7 @@
     "space-before-function-paren": {
       "options": {
         "anonymous": "never",
-        "asyncArrow": "always",
+        "asyncArrow": "never",
         "constructor": "never",
         "method": "never",
         "named": "never"
@@ -118,7 +119,8 @@
         "check-operator",
         "check-separator",
         "check-type",
-        "check-typecast"
+        "check-typecast",
+        "check-module"
       ]
     },
     "component-class-suffix": true,
